@@ -42,17 +42,9 @@
 # define K_Y 121
 # define K_Z 122
 
-typedef struct	s_points
+typedef struct	s_brm
 {
-	int			x1;
-	int			y1;
-	int			x2;
-	int			y2;
-	int			z1;
-	int			z2;
-	int			color1;
-	int			color2;
-}				t_points;
+}				t_brm;
 
 typedef struct	s_point
 {
@@ -62,6 +54,8 @@ typedef struct	s_point
 	int			x;
 	int			y;
 	int			z;
+	int			bres_x; // a changer
+	int			bres_y; // a changer
 	int			color;
 }				t_point;
 
@@ -79,10 +73,8 @@ typedef struct	s_map
 	int			is_flipped;
 	int			offset_x;
 	int			offset_y;
-	int			x_changed;
-	int			y_changed;
-	int			z_changed;
 	int			**tab;
+	t_point		*center;
 }				t_map;
 
 typedef struct	s_env 
@@ -96,40 +88,48 @@ typedef struct	s_env
 	int			line_length;
 	int			endian;
 	int			theme;
-	t_points	*cur_points;
-	t_point		*center;
-	t_point		*point1;
-	t_point		*point2;
+	t_point		*pt1;
+	t_point		*pt2;
 	t_map		*map;
 }				t_env;
 
-// t_lst_points	*ft_lstnew_point(int x, int y, char *z);
-void		put_pixel_to_img(t_env *env, int x, int y, int color);
-void		plot_line_low(t_env *env, int x1, int y1, int x2, int y2);
-void    	plot_line_high(t_env *env, int x1, int y1, int x2, int y2);
-void		plot_line(t_env *env);
-void		plot_line_v2(t_env *env);
-void		print_points(t_env *env);
+//	init
+int		**read_map_v2(t_env *env, int file);
+void	ft_init(int file, t_env *env);
+
+//	hooks
+void	ft_switch_colors(t_env *env, int keycode);
+void	ft_switch_views(t_env *env, int keycode);
+void	ft_rotate_view(t_env *env, int keycode);
+void	ft_move_view(t_env *env, int keycode);
+
+//	display
+void	put_pixel_to_img(t_env *env, int x, int y, int color);
+void	ft_rev_display_v2(t_env *env);
+void	ft_display_v2(t_env *env);
+
+//	calculate_points
+void	get_cur_line_v3(t_env *env, int x, int y);
+void	get_cur_collumn_v3(t_env *env, int x, int y);
+
+//	draw_lines
+void	check_if_flipped(t_env* env);
+void	plot_line_v2(t_env *env);
+
+//	animate
+float	get_step(float target, float angle);
+void	ft_animate(float target_x, float target_z, t_env *env);
+
+//	calculate_colors
 int			get_gradient(t_env *env, int x, int y, int i);
-void		ft_rev_display_v2(t_env *env);
-int			ft_display(t_env *env);
-void		get_min(t_env *env);
-void		get_max(t_env *env);
-void		get_cur_line(t_env *env, int x, int y);
-void		get_cur_collumn(t_env *env, int x, int y);
-void		get_cur_line_v2(t_env *env, int x, int y);
-void		get_cur_collumn_v2(t_env *env, int x, int y);
-void		get_cur_line_rev(t_env *env, int x, int y);
-void		get_cur_collumn_rev(t_env *env, int x, int y);
-void		get_cur_line_v3(t_env *env, int x, int y);
-void		get_cur_collumn_v3(t_env *env, int x, int y);
 int			get_color(t_env *env, int alt);
+
+//	color_themes
 int			get_elevation_theme(t_env *env, int alt);
 int			get_rb_theme(t_env *env, int alt);
 int			get_realist_theme(t_env *env, int alt);
 int			get_purple_theme(t_env *env, int alt);
 int			get_frozen_theme(t_env *env, int alt);
 int			get_matrix_theme(t_env *env, int alt);
-void		ft_display_v2(t_env *env);
 
 #endif

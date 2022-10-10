@@ -1,88 +1,80 @@
 #include "../includes/fdf.h"
 
-void	plot_line_low_v2(t_env *env, t_point *point1, t_point *point2, int i)
+void	plot_line_low_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 {
 	int	dx;
 	int	dy;
 	int	yi;
-	int	y;
-	int	x;
-	int	D;
+	int	delta;
 
-	dx = point2->x - point1->x;
-    dy = point2->y - point1->y;
+	dx = pt2->x - pt1->x;
+    dy = pt2->y - pt1->y;
 	yi = 1;
 	if (dy < 0)
 	{
 		yi = -1;
 		dy = -dy;
 	}
-	D = (2 * dy) - dx;
-	y = point1->y;
-    x = point1->x;
-	while (x < point2->x)
+	delta = (2 * dy) - dx;
+	while (pt1->bres_x < pt2->x)
 	{
-		put_pixel_to_img(env, x, y, get_gradient(env, x, y, i));
-		if (D > 0)
+		put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, get_gradient(env, pt1->bres_x, pt1->bres_y, i));
+		if (delta > 0)
 		{
-			y = y + yi;
-			D = D + (2 * (dy - dx));
+			pt1->bres_y = pt1->bres_y + yi;
+			delta = delta + (2 * (dy - dx));
 		}
 		else
-			D = D + 2*dy;
-		x++;
+			delta = delta + 2*dy;
+		pt1->bres_x++;
 	}
 }
 
-void    plot_line_high_v2(t_env *env, t_point *point1, t_point *point2, int i)
+void    plot_line_high_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 {
         int     dx;
         int     dy;
         int     xi;
-        int     y;
-        int     x;
-        int     D;
+        int     delta;
 
-        dx = point2->x - point1->x;
-        dy = point2->y - point1->y;
+        dx = pt2->x - pt1->x;
+        dy = pt2->y - pt1->y;
         xi = 1;
         if (dx < 0)
         {
-                xi = -1;
-                dx = -dx;
+            xi = -1;
+            dx = -dx;
         }
-        D = (2 * dx) - dy;
-        y = point1->y;
-        x = point1->x;
-        while (y < point2->y)
+        delta = (2 * dx) - dy;
+        while (pt1->bres_y < pt2->y)
         {
-            put_pixel_to_img(env, x, y, get_gradient(env, x, y, i));
-            if (D > 0)
+            put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, get_gradient(env, pt1->bres_x, pt1->bres_y, i));
+            if (delta > 0)
             {
-                x = x + xi;
-                D = D + (2 * (dx - dy));
+                pt1->bres_x = pt1->bres_x + xi;
+                delta = delta + (2 * (dx - dy));
             }
             else
-                D = D + 2*dx;
-            y++;
+                delta = delta + 2*dx;
+            pt1->bres_y++;
         }
 }
 
 void	plot_line_v2(t_env *env)
 {
-	if (abs(env->point2->y - env->point1->y) < \
-	abs(env->point2->x - env->point1->x))
+	if (abs(env->pt2->y - env->pt1->y) < \
+	abs(env->pt2->x - env->pt1->x))
 	{
-		if (env->point1->x > env->point2->x)
-			plot_line_low_v2(env, env->point2, env->point1, 1);
+		if (env->pt1->x > env->pt2->x)
+			plot_line_low_v2(env, env->pt2, env->pt1, 1);
 		else
-			plot_line_low_v2(env, env->point1, env->point2, -1);
+			plot_line_low_v2(env, env->pt1, env->pt2, -1);
 	}	
 	else
 	{
-		if (env->point1->y > env->point2->y)
-			plot_line_high_v2(env, env->point2, env->point1, 1);
+		if (env->pt1->y > env->pt2->y)
+			plot_line_high_v2(env, env->pt2, env->pt1, 1);
 		else
-			plot_line_high_v2(env, env->point1, env->point2, -1);
+			plot_line_high_v2(env, env->pt1, env->pt2, -1);
 	}
 }
