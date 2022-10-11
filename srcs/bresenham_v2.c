@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bresenham_v2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 02:03:38 by znogueir          #+#    #+#             */
+/*   Updated: 2022/10/11 02:07:57 by znogueir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fdf.h"
 
 void	plot_line_low_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
@@ -8,7 +20,7 @@ void	plot_line_low_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 	int	delta;
 
 	dx = pt2->x - pt1->x;
-    dy = pt2->y - pt1->y;
+	dy = pt2->y - pt1->y;
 	yi = 1;
 	if (dy < 0)
 	{
@@ -18,46 +30,48 @@ void	plot_line_low_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 	delta = (2 * dy) - dx;
 	while (pt1->bres_x < pt2->x)
 	{
-		put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, get_gradient(env, pt1->bres_x, pt1->bres_y, i));
+		put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, \
+		get_gradient(env, pt1->bres_x, pt1->bres_y, i));
 		if (delta > 0)
 		{
 			pt1->bres_y = pt1->bres_y + yi;
 			delta = delta + (2 * (dy - dx));
 		}
 		else
-			delta = delta + 2*dy;
+			delta = delta + 2 * dy;
 		pt1->bres_x++;
 	}
 }
 
-void    plot_line_high_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
+void	plot_line_high_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 {
-        int     dx;
-        int     dy;
-        int     xi;
-        int     delta;
+	int	dx;
+	int	dy;
+	int	xi;
+	int	delta;
 
-        dx = pt2->x - pt1->x;
-        dy = pt2->y - pt1->y;
-        xi = 1;
-        if (dx < 0)
-        {
-            xi = -1;
-            dx = -dx;
-        }
-        delta = (2 * dx) - dy;
-        while (pt1->bres_y < pt2->y)
-        {
-            put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, get_gradient(env, pt1->bres_x, pt1->bres_y, i));
-            if (delta > 0)
-            {
-                pt1->bres_x = pt1->bres_x + xi;
-                delta = delta + (2 * (dx - dy));
-            }
-            else
-                delta = delta + 2*dx;
-            pt1->bres_y++;
-        }
+	dx = pt2->x - pt1->x;
+	dy = pt2->y - pt1->y;
+	xi = 1;
+	if (dx < 0)
+	{
+		xi = -1;
+		dx = -dx;
+	}
+	delta = (2 * dx) - dy;
+	while (pt1->bres_y < pt2->y)
+	{
+		put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, \
+		get_gradient(env, pt1->bres_x, pt1->bres_y, i));
+		if (delta > 0)
+		{
+			pt1->bres_x = pt1->bres_x + xi;
+			delta = delta + (2 * (dx - dy));
+		}
+		else
+			delta = delta + 2 * dx;
+		pt1->bres_y++;
+	}
 }
 
 void	plot_line_v2(t_env *env)

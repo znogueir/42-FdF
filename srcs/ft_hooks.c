@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_hooks.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 01:58:34 by znogueir          #+#    #+#             */
+/*   Updated: 2022/10/11 01:59:16 by znogueir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fdf.h"
 
 // void	ft_close_hook(t_env *env, int keycode)
@@ -54,15 +66,15 @@ void	ft_rotate_view(t_env *env, int keycode)
 		env->map->angle_x += 0.1;
 	if (keycode == K_Y)
 		env->map->angle_x -= 0.1;
-	if(env->map->angle_x >= 6.283)
+	if (env->map->angle_x >= 6.283)
 		env->map->angle_x -= 6.283;
 	if (env->map->angle_x < 0)
 		env->map->angle_x += 6.283;
-	if(env->map->angle_y >= 6.283)
+	if (env->map->angle_y >= 6.283)
 		env->map->angle_y -= 6.283;
 	if (env->map->angle_y < 0)
 		env->map->angle_y += 6.283;
-	if(env->map->angle_z >= 6.283)
+	if (env->map->angle_z >= 6.283)
 		env->map->angle_z -= 6.283;
 	if (env->map->angle_z < 0)
 		env->map->angle_z += 6.283;

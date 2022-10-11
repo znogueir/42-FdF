@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_pt.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 02:08:10 by znogueir          #+#    #+#             */
+/*   Updated: 2022/10/11 02:09:42 by znogueir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fdf.h"
 
 void	rotate_point(t_env *env, t_point *pt)
@@ -6,14 +18,18 @@ void	rotate_point(t_env *env, t_point *pt)
 	float	y;
 	float	z;
 
-	x = pt->prev_x * cos(env->map->angle_z) - pt->prev_y * sin(env->map->angle_z);
-	y = pt->prev_x * sin(env->map->angle_z) + pt->prev_y * cos(env->map->angle_z);
+	x = pt->prev_x * cos(env->map->angle_z) - \
+	pt->prev_y * sin(env->map->angle_z);
+	y = pt->prev_x * sin(env->map->angle_z) + \
+	pt->prev_y * cos(env->map->angle_z);
 	z = pt->prev_z;
 	pt->prev_z = z * cos(env->map->angle_y) - x * sin(env->map->angle_y);
 	pt->prev_x = z * sin(env->map->angle_y) + x * cos(env->map->angle_y);
 	pt->prev_y = y;
-	pt->y = pt->prev_y * cos(env->map->angle_x) - pt->prev_z * sin(env->map->angle_x);
-	pt->z = pt->prev_y * sin(env->map->angle_x) + pt->prev_z * cos(env->map->angle_x);
+	pt->y = pt->prev_y * cos(env->map->angle_x) - \
+	pt->prev_z * sin(env->map->angle_x);
+	pt->z = pt->prev_y * sin(env->map->angle_x) + \
+	pt->prev_z * cos(env->map->angle_x);
 	pt->x = pt->prev_x;
 	pt->x += env->map->offset_x;
 	pt->y += env->map->offset_y;

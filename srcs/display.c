@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 02:11:45 by znogueir          #+#    #+#             */
+/*   Updated: 2022/10/11 02:21:21 by znogueir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fdf.h"
+
+void	check_if_flipped(t_env *env)
+{
+	if (env->map->angle_x >= 3.142 && env->map->angle_x <= 6.283)
+		env->map->is_flipped *= -1;
+	if (env->map->angle_z > 1.585 && env->map->angle_z <= 4.712)
+		env->map->is_flipped *= -1;
+}
 
 void	put_pixel_to_img(t_env *env, int x, int y, int color)
 {
@@ -6,8 +26,9 @@ void	put_pixel_to_img(t_env *env, int x, int y, int color)
 
 	if (x > 0 && x < 1920 && y > 0 && y < 1080)
 	{
-		dst = env->addr + (y * env->line_length + x * (env->bits_per_pixel / 8));
-		*(unsigned int*)dst = color;
+		dst = env->addr + (y * env->line_length + x \
+		* (env->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
 	}
 }
 
@@ -49,6 +70,7 @@ void	ft_rev_display_v2(t_env *env)
 	mlx_destroy_image(env->mlx, env->img);
 	env->map->is_flipped = 1;
 }
+
 void	ft_display_v2(t_env *env)
 {
 	int	x;

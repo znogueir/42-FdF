@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 01:59:49 by znogueir          #+#    #+#             */
+/*   Updated: 2022/10/11 02:02:34 by znogueir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fdf.h"
 
 int	get_color(t_env *env, int alt)
@@ -30,7 +42,7 @@ void	decimal_to_rgb(int c, int *rgb)
 	rgb[0] = r / 65536;
 }
 
-int get_distance(int x1, int y1, int x2, int y2)
+int	get_distance(int x1, int y1, int x2, int y2)
 {
 	if (abs(x2 - x1) >= abs(y2 - y1))
 		return (abs(x2 - x1));
@@ -40,7 +52,7 @@ int get_distance(int x1, int y1, int x2, int y2)
 
 int	get_gradient(t_env *env, int x, int y, int i)
 {
-	float		diff;
+	float	diff;
 	int		rgb1[3];
 	int		rgb2[3];
 	int		rgb[3];
@@ -65,5 +77,5 @@ int	get_gradient(t_env *env, int x, int y, int i)
 		rgb[1] = rgb2[1] + (rgb1[1] - rgb2[1]) * (percentage / 100.);
 		rgb[2] = rgb2[2] + (rgb1[2] - rgb2[2]) * (percentage / 100.);
 	}
- 	return (rgb[0] * (256*256) + rgb[1] * 256 + rgb[2]);
+	return (rgb[0] * (256 * 256) + rgb[1] * 256 + rgb[2]);
 }

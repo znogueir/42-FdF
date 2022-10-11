@@ -6,19 +6,11 @@
 /*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 23:15:01 by znogueir          #+#    #+#             */
-/*   Updated: 2022/10/04 23:20:18 by znogueir         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:20:48 by znogueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-void	check_if_flipped(t_env* env)
-{
-	if (env->map->angle_x >= 3.142 && env->map->angle_x <= 6.283)
-		env->map->is_flipped *= -1;
-	if (env->map->angle_z > 1.585 && env->map->angle_z <= 4.712)
-		env->map->is_flipped *= -1;
-}
 
 int	ft_key_hook(int keycode, void *param)
 {
@@ -32,7 +24,7 @@ int	ft_key_hook(int keycode, void *param)
 	if (env->map->is_flipped == -1)
 		ft_rev_display_v2(env);
 	else
-	ft_display_v2(env);
+		ft_display_v2(env);
 //	ft_close_hook(env, keycode);
 	return (0);
 }

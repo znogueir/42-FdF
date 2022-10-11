@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 02:13:10 by znogueir          #+#    #+#             */
+/*   Updated: 2022/10/11 02:13:58 by znogueir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fdf.h"
 
 void	get_min(t_env *env)
@@ -50,7 +62,7 @@ void	ft_init_map(t_env *env, int file)
 
 	ce = malloc(sizeof(t_point));
 	env->map->zoom_factor = 10;
-    env->map->alt_factor = 5;
+	env->map->alt_factor = 5;
 	env->map->angle_z = 0.785;
 	env->map->angle_x = 1.047;
 	env->map->angle_y = 0;
@@ -65,9 +77,9 @@ void	ft_init_map(t_env *env, int file)
 
 void	ft_init(int file, t_env *env)
 {
-	t_map		*alloc_map;
-	t_point 	*point1;
-	t_point		*point2;
+	t_map	*alloc_map;
+	t_point	*point1;
+	t_point	*point2;
 
 	alloc_map = malloc(sizeof(t_map));
 	point1 = malloc(sizeof(t_point));
