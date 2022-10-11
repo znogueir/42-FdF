@@ -12,6 +12,32 @@
 
 #include "../includes/fdf.h"
 
+void	get_center(t_env *env)
+{
+	env->map->center->prev_x = (env->map->width - 1) \
+	* env->map->zoom_factor / 2 + env->map->offset_x;
+	env->map->center->prev_y = (env->map->height - 1) \
+	* env->map->zoom_factor / 2 + env->map->offset_y;
+	env->map->center->prev_z = env->map->min * env->map->alt_factor + \
+	(fabs(env->map->max * env->map->alt_factor - env->map->min * env->map->alt_factor) / 2.);
+	env->map->offset_x = 960 - env->map->center->prev_x;
+	env->map->offset_y = 540 - env->map->center->prev_y;
+}
+
+void	get_initial_zoom(t_env *env)
+{
+	float	zoom_w;
+	float	zoom_h;
+
+	zoom_w = 1920 / (env->map->width * 1.5);
+	zoom_h = 1080 / (env->map->height * 1.5);
+	if (zoom_w > zoom_h)
+		env->map->zoom_factor = zoom_h;
+	else
+		env->map->zoom_factor = zoom_w;
+	env->map->alt_factor = env->map->zoom_factor / 2;
+}
+
 void	get_min(t_env *env)
 {
 	int	x;
@@ -61,8 +87,7 @@ void	ft_init_map(t_env *env, int file)
 	t_point		*ce;
 
 	ce = malloc(sizeof(t_point));
-	env->map->zoom_factor = 10;
-	env->map->alt_factor = 5;
+	env->map->center = ce;
 	env->map->angle_z = 0.785;
 	env->map->angle_x = 1.047;
 	env->map->angle_y = 0;
@@ -71,8 +96,8 @@ void	ft_init_map(t_env *env, int file)
 	env->map->is_flipped = 1;
 	env->map->offset_x = 0;// get center;
 	env->map->offset_y = 0;// get center;
-	env->map->center = ce;
 	env->map->tab = read_map_v2(env, file);
+	get_initial_zoom(env);
 }
 
 void	ft_init(int file, t_env *env)
@@ -93,4 +118,5 @@ void	ft_init(int file, t_env *env)
 	env->mlx_win = mlx_new_window(env->mlx, 1920, 1080, "Fdf #UwU#");
 	get_min(env);
 	get_max(env);
+	get_center(env);
 }

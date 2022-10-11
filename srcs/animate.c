@@ -31,9 +31,9 @@ void	ft_animate(float target_x, float target_z, t_env *env)
 	i = 0;
 	if (env->map->angle_x == target_x && env->map->angle_z == target_z)
 		return ;
-	step_x = get_step(target_x, env->map->angle_x) / 25;
-	step_z = get_step(target_z, env->map->angle_z) / 25;
-	while (i < 25)
+	step_x = get_step(target_x, env->map->angle_x) / 35;
+	step_z = get_step(target_z, env->map->angle_z) / 35;
+	while (i < 35)
 	{
 		env->map->angle_x += step_x;
 		env->map->angle_z += step_z;

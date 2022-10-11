@@ -26,7 +26,7 @@ int	get_color(t_env *env, int alt)
 		return (get_purple_theme(env, alt));
 	else if (env->theme == 5)
 		return (get_frozen_theme(env, alt));
-	else if (env->theme == 6)
+	else
 		return (get_matrix_theme(env, alt));
 }
 

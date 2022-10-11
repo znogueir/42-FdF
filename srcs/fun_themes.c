@@ -18,25 +18,25 @@ int	get_purple_theme(t_env *env, int alt)
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
-		return (0xFFC500); // jaune
+		return (0xFFC500);
 	else if (alt > env->map->max - 2 * tenth)
-		return (0xFF8F00); // orange
+		return (0xFF8F00);
 	else if (alt > env->map->max - 3 * tenth)
-		return (0xFF4D00); // rouge-orange
+		return (0xFF4D00);
 	else if (alt > env->map->max - 4 * tenth)
-		return (0xFF0000); // rouge
+		return (0xFF0000);
 	else if (alt > env->map->max - 5 * tenth)
-		return (0xFF008F); // magenta
+		return (0xFF008F);
 	else if (alt > env->map->max - 6 * tenth)
-		return (0xFF00F0); // rose
+		return (0xFF00F0);
 	else if (alt > env->map->max - 7 * tenth)
-		return (0xCD00FF); // fuschia
+		return (0xCD00FF);
 	else if (alt > env->map->max - 8 * tenth)
-		return (0x9300FF); // violet
+		return (0x9300FF);
 	else if (alt > env->map->max - 9 * tenth)
-		return (0x5D00FF); // violet fonce
-	else if (alt >= env->map->min)
-		return (0x2A00FF); // bleu fonce
+		return (0x5D00FF);
+	else
+		return (0x2A00FF);
 }
 
 int	get_frozen_theme(t_env *env, int alt)
@@ -45,25 +45,25 @@ int	get_frozen_theme(t_env *env, int alt)
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
-		return (0xFFFFFF); // blanc
+		return (0xFFFFFF);
 	else if (alt > env->map->max - 2 * tenth)
-		return (0x00FFC9); // turquoise
+		return (0x00FFC9);
 	else if (alt > env->map->max - 3 * tenth)
-		return (0x00FFF7); // bleu ciel
+		return (0x00FFF7);
 	else if (alt > env->map->max - 4 * tenth)
-		return (0x00BDFF); // bleu clair
+		return (0x00BDFF);
 	else if (alt > env->map->max - 5 * tenth)
-		return (0x0074FF); // bleu
+		return (0x0074FF);
 	else if (alt > env->map->max - 6 * tenth)
-		return (0x0800FF); // bleu fonce
+		return (0x0800FF);
 	else if (alt > env->map->max - 7 * tenth)
-		return (0x6800FF); // violet fonce
+		return (0x6800FF);
 	else if (alt > env->map->max - 8 * tenth)
-		return (0xBD00FF); // violet
+		return (0xBD00FF);
 	else if (alt > env->map->max - 9 * tenth)
-		return (0xF700FF); // fuschia
-	else if (alt >= env->map->min)
-		return (0xFF00BD); // rose
+		return (0xF700FF);
+	else
+		return (0xFF00BD);
 }
 
 int	get_matrix_theme(t_env *env, int alt)
@@ -72,23 +72,23 @@ int	get_matrix_theme(t_env *env, int alt)
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
-		return (0xFFFFFF); // blanc
+		return (0xFFFFFF);
 	else if (alt > env->map->max - 2 * tenth)
-		return (0xFFFD98); // jaune clair
+		return (0xFFFD98);
 	else if (alt > env->map->max - 3 * tenth)
-		return (0xFFFA00); // jaune
+		return (0xFFFA00);
 	else if (alt > env->map->max - 4 * tenth)
-		return (0xBDFF00); // vert citron
+		return (0xBDFF00);
 	else if (alt > env->map->max - 5 * tenth)
-		return (0x25CC00); // vert vibrant
+		return (0x25CC00);
 	else if (alt > env->map->max - 6 * tenth)
-		return (0x1B9500); // vert 
+		return (0x1B9500);
 	else if (alt > env->map->max - 7 * tenth)
-		return (0x157300); // vert fonce
+		return (0x157300);
 	else if (alt > env->map->max - 8 * tenth)
-		return (0x0F5300); // vert profond
+		return (0x0F5300);
 	else if (alt > env->map->min - 9 * tenth)
-		return (0x093300); // vert abyssal
-	else if (alt >= env->map->min)
-		return (0x082A00); // vert noir
+		return (0x093300);
+	else
+		return (0x082A00);
 }

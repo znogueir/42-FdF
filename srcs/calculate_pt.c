@@ -42,7 +42,7 @@ void	get_to_origin(t_env *env, t_point *pt)
 	env->map->center->prev_y = (env->map->height - 1) \
 	* env->map->zoom_factor / 2 + env->map->offset_y;
 	env->map->center->prev_z = env->map->min + \
-	(abs(env->map->max - env->map->min) / 2.);
+	(fabs(env->map->max - env->map->min) / 2.);
 	pt->prev_x = (pt->prev_x - env->map->center->prev_x);
 	pt->prev_y = (pt->prev_y - env->map->center->prev_y);
 	pt->prev_z = (pt->prev_z - env->map->center->prev_z);

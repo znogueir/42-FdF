@@ -1,13 +1,27 @@
-CC		= gcc
-CFLAGS	= -Wall -Werror -Wextra -lm -lXext -lX11
-NAME	= fdf
+CC			= gcc
+CFLAGS		= -Wextra -Wall -Werror
+MLX_LINUX_FLAGS	= -lm -lX11 -lXext
+NAME		= fdf
 
-SRC_PATH = srcs/
-OBJ_PATH = obj/
+LIBFT_PATH	= ./libs/libft/
+LIBFT		= $(LIBFT_PATH)libft.a
 
-SRC		= new_main.c \
-		fdf_utils.c \
-		bresenham.c \
+MLX_PATH	= ./libs/minilibx-linux/
+MLX			= $(MLX_PATH)libmlx.a
+
+SRC_PATH 	= srcs/
+OBJ_PATH 	= obj/
+
+SRC			= animate.c \
+			calculate_pt.c \
+			colors.c \
+			display.c \
+			ft_hooks.c \
+			ft_init.c \
+			fun_themes.c \
+			new_main.c \
+			srs_themes.c \
+			dda.c
 
 SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 OBJ		= $(SRC:.c=.o)
@@ -22,13 +36,22 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 $(OBJ_PATH):
 	mkdir $(OBJ_PATH)
 
-$(NAME): $(OBJ_PATH) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(LIBFT) $(MLX) $(OBJ_PATH) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLX_LINUX_FLAGS) -o $(NAME)
+
+$(LIBFT):
+	make -C $(LIBFT_PATH)
+
+$(MLX):
+	make -C $(MLX_PATH)
 
 clean:
+	make -C $(LIBFT_PATH) clean
+	make -C $(MLX_PATH) clean
 	rm -rf $(OBJ_PATH)
 
 fclean: clean
+	make -C $(LIBFT_PATH) fclean
 	rm -f $(NAME)
 
 re: fclean all

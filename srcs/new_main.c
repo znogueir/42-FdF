@@ -104,7 +104,9 @@ int	main(int ac, char **av)
 		env.file_name = av[1];
 		ft_init(file, &env);
 		ft_display_v2(&env);
-		mlx_key_hook(env.mlx_win, &ft_key_hook, &env);
+		//mlx_key_hook(env.mlx_win, &ft_key_hook, &env);
+		mlx_hook(env.mlx_win, 2, 1, ft_key_hook, &env);
+		//mlx_hook(data->win, 17, 0, ft_close, data);
 		mlx_loop(env.mlx);
 	}
 	return (0);

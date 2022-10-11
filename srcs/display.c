@@ -32,7 +32,7 @@ void	put_pixel_to_img(t_env *env, int x, int y, int color)
 	}
 }
 
-void	project(t_env *env, int x, int y, int rev)
+void	project(t_env *env, int x, int y)
 {
 	if (x < env->map->width - 1)
 	{
@@ -60,7 +60,7 @@ void	ft_rev_display_v2(t_env *env)
 		x = env->map->width - 1;
 		while (x >= 0)
 		{
-			project(env, x, y, 1);
+			project(env, x, y);
 			put_pixel_to_img(env, x, y, 0xFF0000);
 			x--;
 		}
@@ -85,7 +85,7 @@ void	ft_display_v2(t_env *env)
 		x = 0;
 		while (x < env->map->width)
 		{
-			project(env, x, y, 0);
+			project(env, x, y);
 			put_pixel_to_img(env, x, y, 0xFF0000);
 			x++;
 		}
