@@ -21,6 +21,9 @@
 # include <math.h>
 # include <stdio.h>
 
+# define WIN_H 1080
+# define WIN_W 1920
+
 typedef struct s_point
 {
 	float	prev_x;
@@ -50,13 +53,15 @@ typedef struct s_map
 	float	max;
 	float	min;
 	float	zoom_factor;
+	float	initial_zoom;
 	float	alt_factor;
+	float	initial_alt;
 	float	angle_x;
 	float	angle_y;
 	float	angle_z;
 	int		is_flipped;
-	int		offset_x;
-	int		offset_y;
+	float	offset_x;
+	float	offset_y;
 	int		**tab;
 	t_point	*center;
 }			t_map;
@@ -72,6 +77,10 @@ typedef struct s_env
 	int		line_length;
 	int		endian;
 	int		theme;
+	float	step_x;
+	float	step_y;
+	float	step_zoom;
+	float	step_alt;
 	t_point	*pt1;
 	t_point	*pt2;
 	t_map	*map;
@@ -94,6 +103,8 @@ void	check_if_flipped(t_env *env);
 void	put_pixel_to_img(t_env *env, int x, int y, int color);
 void	ft_rev_display_v2(t_env *env);
 void	ft_display_v2(t_env *env);
+void	draw_box(t_env *env);
+void	display_hud(t_env *env);
 
 //	calculate_points
 void	get_center(t_env *env);
@@ -105,7 +116,8 @@ void	plot_line_v2(t_env *env);
 
 //	animate
 float	get_step(float target, float angle);
-void	ft_animate(float target_x, float target_z, t_env *env);
+void	ft_animate_view(float target_x, float target_z, t_env *env);
+void	ft_animate_center(t_env *env);
 
 //	calculate_colors
 int		get_gradient(t_env *env, int x, int y, int i);

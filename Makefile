@@ -22,7 +22,8 @@ SRC			= animate.c \
 			new_main.c \
 			srs_themes.c \
 			bresenham.c \
-			ft_free.c
+			ft_free.c \
+			display_hud.c
 
 SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 OBJ		= $(SRC:.c=.o)

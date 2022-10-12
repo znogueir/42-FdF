@@ -38,30 +38,34 @@ void	ft_switch_views(t_env *env, int keycode)
 		env->map->angle_x = 0;
 	if (keycode == K_I)
 	{
-		ft_animate(1.047, 0.785, env);
-		env->map->angle_x = 1.047;
-		env->map->angle_z = 0.785;
+		ft_animate_view(1.047, 0.785, env);
 		env->map->is_flipped = 1;
 	}
 	if (keycode == K_P)
 	{
-		ft_animate(1.047, 0, env);
-		env->map->angle_x = 1.047;
-		env->map->angle_z = 0;
+		ft_animate_view(1.047, 0, env);
 		env->map->is_flipped = 1;
+	}
+	if (keycode == K_R)
+	{
+		ft_animate_center(env);
+		env->map->offset_x = WIN_W / 2;
+		env->map->offset_y = WIN_H / 2;
+		env->map->zoom_factor = env->map->initial_zoom;
+		env->map->alt_factor = env->map->initial_alt;
 	}
 }
 
 void	ft_rotate_view(t_env *env, int keycode)
 {
 	if (keycode == K_G)
-		env->map->angle_z -= 0.1;
+		env->map->angle_z -= 0.05;
 	if (keycode == K_J)
-		env->map->angle_z += 0.1;
+		env->map->angle_z += 0.05;
 	if (keycode == K_H)
-		env->map->angle_x += 0.1;
+		env->map->angle_x += 0.05;
 	if (keycode == K_Y)
-		env->map->angle_x -= 0.1;
+		env->map->angle_x -= 0.05;
 	if (env->map->angle_x >= 6.283)
 		env->map->angle_x -= 6.283;
 	if (env->map->angle_x < 0)
@@ -88,9 +92,15 @@ void	ft_move_view(t_env *env, int keycode)
 	if (keycode == K_D)
 		env->map->offset_x += 15;
 	if (keycode == K_UP)
+	{
 		env->map->zoom_factor *= 1.1;
+		env->map->alt_factor *= 1.1;
+	}
 	if (keycode == K_DWN)
+	{
 		env->map->zoom_factor /= 1.1;
+		env->map->alt_factor /= 1.1;
+	}
 	if (keycode == K_LFT)
 		env->map->alt_factor /= 1.1;
 	if (keycode == K_RGT)

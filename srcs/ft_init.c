@@ -17,13 +17,25 @@ void	get_initial_zoom(t_env *env)
 	float	zoom_w;
 	float	zoom_h;
 
-	zoom_w = 1920 / (env->map->width * 1.5);
-	zoom_h = 1080 / (env->map->height * 1.5);
+	zoom_w = WIN_W / (env->map->width * 1.5);
+	zoom_h = WIN_H / (env->map->height * 0.75);
 	if (zoom_w > zoom_h)
-		env->map->zoom_factor = zoom_h;
+		env->map->initial_zoom = zoom_h;
 	else
-		env->map->zoom_factor = zoom_w;
-	env->map->alt_factor = env->map->zoom_factor / 2;
+	env->map->initial_zoom = zoom_w;
+	env->map->zoom_factor = env->map->initial_zoom;
+	if (env->map->height < 100 && env->map->width < 100)
+		env->map->initial_alt = 20;
+	else
+	{
+		if (env->map->height > env->map->width)
+			env->map->initial_alt = env->map->height / \
+			fabs(env->map->max - env->map->min);
+		else
+			env->map->initial_alt = env->map->width / \
+			fabs(env->map->max - env->map->min);
+	}
+	env->map->alt_factor = env->map->initial_alt;
 }
 
 void	get_min(t_env *env)
@@ -85,7 +97,6 @@ void	ft_init_map(t_env *env, int file)
 	env->map->offset_x = 960;
 	env->map->offset_y = 540;
 	env->map->tab = read_map_v2(env, file);
-	get_initial_zoom(env);
 }
 
 void	ft_init(int file, t_env *env)
@@ -106,10 +117,11 @@ void	ft_init(int file, t_env *env)
 	env->brm = br;
 	ft_init_map(env, file);
 	env->mlx = mlx_init();
-	env->mlx_win = mlx_new_window(env->mlx, 1920, 1080, \
+	env->mlx_win = mlx_new_window(env->mlx, WIN_W, WIN_H, \
 	"Fdf #UwU#");
-	env->img = mlx_new_image(env->mlx, 1920, 1080);
+	env->img = mlx_new_image(env->mlx, WIN_W, WIN_H);
 	get_min(env);
 	get_max(env);
 	get_center(env);
+	get_initial_zoom(env);
 }
