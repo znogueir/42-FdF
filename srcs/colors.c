@@ -50,13 +50,20 @@ int	get_distance(int x1, int y1, int x2, int y2)
 		return (abs(y2 - y1));
 }
 
+void	calculate_rgb(int *rgb, int *rgb1, int *rgb2, int p)
+{
+	rgb[0] = rgb2[0] + (rgb1[0] - rgb2[0]) * (p / 100.);
+	rgb[1] = rgb2[1] + (rgb1[1] - rgb2[1]) * (p / 100.);
+	rgb[2] = rgb2[2] + (rgb1[2] - rgb2[2]) * (p / 100.);
+}
+
 int	get_gradient(t_env *env, int x, int y, int i)
 {
 	float	diff;
 	int		rgb1[3];
 	int		rgb2[3];
 	int		rgb[3];
-	float	percentage;
+	float	p;
 
 	if (env->pt1->color == env->pt2->color)
 		return (env->pt1->color);
@@ -65,17 +72,13 @@ int	get_gradient(t_env *env, int x, int y, int i)
 	diff = get_distance(env->pt1->x, env->pt1->y, env->pt2->x, env->pt2->y);
 	if (i < 0)
 	{
-		percentage = get_distance(x, y, env->pt1->x, env->pt1->y) * 100. / diff;
-		rgb[0] = rgb1[0] + (rgb2[0] - rgb1[0]) * (percentage / 100.);
-		rgb[1] = rgb1[1] + (rgb2[1] - rgb1[1]) * (percentage / 100.);
-		rgb[2] = rgb1[2] + (rgb2[2] - rgb1[2]) * (percentage / 100.);
+		p = get_distance(x, y, env->pt1->x, env->pt1->y) * 100. / diff;
+		calculate_rgb(rgb, rgb2, rgb1, p);
 	}
 	else
 	{
-		percentage = get_distance(x, y, env->pt2->x, env->pt2->y) * 100. / diff;
-		rgb[0] = rgb2[0] + (rgb1[0] - rgb2[0]) * (percentage / 100.);
-		rgb[1] = rgb2[1] + (rgb1[1] - rgb2[1]) * (percentage / 100.);
-		rgb[2] = rgb2[2] + (rgb1[2] - rgb2[2]) * (percentage / 100.);
+		p = get_distance(x, y, env->pt2->x, env->pt2->y) * 100. / diff;
+		calculate_rgb(rgb, rgb1, rgb2, p);
 	}
 	return (rgb[0] * (256 * 256) + rgb[1] * 256 + rgb[2]);
 }

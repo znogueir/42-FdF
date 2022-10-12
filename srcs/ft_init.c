@@ -12,18 +12,6 @@
 
 #include "../includes/fdf.h"
 
-void	get_center(t_env *env)
-{
-	env->map->center->prev_x = (env->map->width - 1) \
-	* env->map->zoom_factor / 2 + env->map->offset_x;
-	env->map->center->prev_y = (env->map->height - 1) \
-	* env->map->zoom_factor / 2 + env->map->offset_y;
-	env->map->center->prev_z = env->map->min * env->map->alt_factor + \
-	(fabs(env->map->max * env->map->alt_factor - env->map->min * env->map->alt_factor) / 2.);
-	env->map->offset_x = 960 - env->map->center->prev_x;
-	env->map->offset_y = 540 - env->map->center->prev_y;
-}
-
 void	get_initial_zoom(t_env *env)
 {
 	float	zoom_w;
@@ -94,8 +82,8 @@ void	ft_init_map(t_env *env, int file)
 	env->map->width = 0;
 	env->map->height = 0;
 	env->map->is_flipped = 1;
-	env->map->offset_x = 0;// get center;
-	env->map->offset_y = 0;// get center;
+	env->map->offset_x = 960;
+	env->map->offset_y = 540;
 	env->map->tab = read_map_v2(env, file);
 	get_initial_zoom(env);
 }
@@ -105,17 +93,22 @@ void	ft_init(int file, t_env *env)
 	t_map	*alloc_map;
 	t_point	*point1;
 	t_point	*point2;
+	t_brm	*br;
 
 	alloc_map = malloc(sizeof(t_map));
 	point1 = malloc(sizeof(t_point));
 	point2 = malloc(sizeof(t_point));
+	br = malloc(sizeof(t_brm));
 	env->map = alloc_map;
 	env->pt1 = point1;
 	env->pt2 = point2;
 	env->theme = 2;
+	env->brm = br;
 	ft_init_map(env, file);
 	env->mlx = mlx_init();
-	env->mlx_win = mlx_new_window(env->mlx, 1920, 1080, "Fdf #UwU#");
+	env->mlx_win = mlx_new_window(env->mlx, 1920, 1080, \
+	"Fdf #UwU#");
+	env->img = mlx_new_image(env->mlx, 1920, 1080);
 	get_min(env);
 	get_max(env);
 	get_center(env);

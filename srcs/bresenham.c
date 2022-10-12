@@ -14,63 +14,59 @@
 
 void	plot_line_low_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 {
-	int	dx;
-	int	dy;
-	int	yi;
-	int	delta;
-
-	dx = pt2->x - pt1->x;
-	dy = pt2->y - pt1->y;
-	yi = 1;
-	if (dy < 0)
+	env->brm->x = pt1->x;
+	env->brm->y = pt1->y;
+	env->brm->dx = pt2->x - pt1->x;
+	env->brm->dy = pt2->y - pt1->y;
+	env->brm->yi = 1;
+	if (env->brm->dy < 0)
 	{
-		yi = -1;
-		dy = -dy;
+		env->brm->yi = -1;
+		env->brm->dy = -env->brm->dy;
 	}
-	delta = (2 * dy) - dx;
-	while (pt1->bres_x < pt2->x)
+	env->brm->delta = (2 * env->brm->dy) - env->brm->dx;
+	while (env->brm->x < pt2->x)
 	{
-		put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, \
-		get_gradient(env, pt1->bres_x, pt1->bres_y, i));
-		if (delta > 0)
+		put_pixel_to_img(env, env->brm->x, env->brm->y, \
+		get_gradient(env, env->brm->x, env->brm->y, i));
+		if (env->brm->delta > 0)
 		{
-			pt1->bres_y = pt1->bres_y + yi;
-			delta = delta + (2 * (dy - dx));
+			env->brm->y = env->brm->y + env->brm->yi;
+			env->brm->delta = env->brm->delta + (2 * \
+			(env->brm->dy - env->brm->dx));
 		}
 		else
-			delta = delta + 2 * dy;
-		pt1->bres_x++;
+			env->brm->delta = env->brm->delta + 2 * env->brm->dy;
+		env->brm->x++;
 	}
 }
 
 void	plot_line_high_v2(t_env *env, t_point *pt1, t_point *pt2, int i)
 {
-	int	dx;
-	int	dy;
-	int	xi;
-	int	delta;
-
-	dx = pt2->x - pt1->x;
-	dy = pt2->y - pt1->y;
-	xi = 1;
-	if (dx < 0)
+	env->brm->x = pt1->x;
+	env->brm->y = pt1->y;
+	env->brm->dx = pt2->x - pt1->x;
+	env->brm->dy = pt2->y - pt1->y;
+	env->brm->xi = 1;
+	if (env->brm->dx < 0)
 	{
-		xi = -1;
-		dx = -dx;
+		env->brm->xi = -1;
+		env->brm->dx = -env->brm->dx;
 	}
-	delta = (2 * dx) - dy;
-	while (pt1->bres_y < pt2->y)
+	env->brm->delta = (2 * env->brm->dx) - env->brm->dy;
+	while (env->brm->y < pt2->y)
 	{
-		put_pixel_to_img(env, pt1->bres_x, pt1->bres_y, \
-		get_gradient(env, pt1->bres_x, pt1->bres_y, i));
-		if (delta > 0)
+		put_pixel_to_img(env, env->brm->x, env->brm->y, \
+		get_gradient(env, env->brm->x, env->brm->y, i));
+		if (env->brm->delta > 0)
 		{
-			pt1->bres_x = pt1->bres_x + xi;
-			delta = delta + (2 * (dx - dy));
+			env->brm->x = env->brm->x + env->brm->xi;
+			env->brm->delta = env->brm->delta + (2 * \
+			(env->brm->dx - env->brm->dy));
 		}
 		else
-			delta = delta + 2 * dx;
-		pt1->bres_y++;
+			env->brm->delta = env->brm->delta + 2 * env->brm->dx;
+		env->brm->y++;
 	}
 }
 

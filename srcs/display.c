@@ -51,6 +51,7 @@ void	ft_rev_display_v2(t_env *env)
 	int	x;
 	int	y;
 
+	mlx_destroy_image(env->mlx, env->img);
 	env->img = mlx_new_image(env->mlx, 1920, 1080);
 	env->addr = mlx_get_data_addr(env->img, &env->bits_per_pixel, \
 	&env->line_length, &env->endian);
@@ -61,13 +62,11 @@ void	ft_rev_display_v2(t_env *env)
 		while (x >= 0)
 		{
 			project(env, x, y);
-			put_pixel_to_img(env, x, y, 0xFF0000);
 			x--;
 		}
 		y--;
 	}
 	mlx_put_image_to_window(env->mlx, env->mlx_win, env->img, 0, 0);
-	mlx_destroy_image(env->mlx, env->img);
 	env->map->is_flipped = 1;
 }
 
@@ -76,6 +75,7 @@ void	ft_display_v2(t_env *env)
 	int	x;
 	int	y;
 
+	mlx_destroy_image(env->mlx, env->img);
 	env->img = mlx_new_image(env->mlx, 1920, 1080);
 	env->addr = mlx_get_data_addr(env->img, &env->bits_per_pixel, \
 	&env->line_length, &env->endian);
@@ -86,11 +86,9 @@ void	ft_display_v2(t_env *env)
 		while (x < env->map->width)
 		{
 			project(env, x, y);
-			put_pixel_to_img(env, x, y, 0xFF0000);
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(env->mlx, env->mlx_win, env->img, 0, 0);
-	mlx_destroy_image(env->mlx, env->img);
 }

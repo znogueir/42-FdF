@@ -21,10 +21,6 @@
 # include <math.h>
 # include <stdio.h>
 
-// typedef struct	s_brm
-// {
-// }				t_brm;
-
 typedef struct s_point
 {
 	float	prev_x;
@@ -33,10 +29,19 @@ typedef struct s_point
 	int		x;
 	int		y;
 	int		z;
-	int		bres_x; // a changer
-	int		bres_y; // a changer
 	int		color;
 }			t_point;
+
+typedef struct s_brm
+{
+	int		x;
+	int		y;
+	int		dx;
+	int		dy;
+	int		delta;
+	int		xi;
+	int		yi;
+}			t_brm;
 
 typedef struct s_map
 {
@@ -70,13 +75,15 @@ typedef struct s_env
 	t_point	*pt1;
 	t_point	*pt2;
 	t_map	*map;
-}				t_env;
+	t_brm	*brm;
+}			t_env;
 
 //	init
 int		**read_map_v2(t_env *env, int file);
 void	ft_init(int file, t_env *env);
 
 //	hooks
+int		ft_key_hook(int keycode, void *param);
 void	ft_switch_colors(t_env *env, int keycode);
 void	ft_switch_views(t_env *env, int keycode);
 void	ft_rotate_view(t_env *env, int keycode);
@@ -89,6 +96,7 @@ void	ft_rev_display_v2(t_env *env);
 void	ft_display_v2(t_env *env);
 
 //	calculate_points
+void	get_center(t_env *env);
 void	get_cur_line_v3(t_env *env, int x, int y);
 void	get_cur_collumn_v3(t_env *env, int x, int y);
 
@@ -110,5 +118,10 @@ int		get_realist_theme(t_env *env, int alt);
 int		get_purple_theme(t_env *env, int alt);
 int		get_frozen_theme(t_env *env, int alt);
 int		get_matrix_theme(t_env *env, int alt);
+
+//	free
+int		ft_close(t_env *env);
+void	ft_free_split(char **str);
+void	ft_global_free(t_env *env);
 
 #endif

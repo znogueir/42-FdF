@@ -1,5 +1,5 @@
 CC			= gcc
-CFLAGS		= -Wextra -Wall -Werror
+CFLAGS		= -Wextra -Wall
 MLX_LINUX_FLAGS	= -lm -lX11 -lXext
 NAME		= fdf
 
@@ -21,7 +21,8 @@ SRC			= animate.c \
 			fun_themes.c \
 			new_main.c \
 			srs_themes.c \
-			dda.c
+			bresenham.c \
+			ft_free.c
 
 SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 OBJ		= $(SRC:.c=.o)

@@ -14,7 +14,7 @@
 
 int	get_elevation_theme(t_env *env, int alt)
 {
-	int	tenth;
+	float	tenth;
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
@@ -41,7 +41,7 @@ int	get_elevation_theme(t_env *env, int alt)
 
 int	get_rb_theme(t_env *env, int alt)
 {
-	int	tenth;
+	float	tenth;
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
@@ -68,7 +68,7 @@ int	get_rb_theme(t_env *env, int alt)
 
 int	get_realist_theme(t_env *env, int alt)
 {
-	int	tenth;
+	float	tenth;
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
@@ -80,7 +80,7 @@ int	get_realist_theme(t_env *env, int alt)
 	else if (alt > env->map->max - 4 * tenth)
 		return (0x2CA124);
 	else if (alt > env->map->max - 5 * tenth)
-		return (0xFFDC65); //beige
+		return (0xFFDC65);
 	else if (alt > env->map->max - 6 * tenth)
 		return (0x0CB4CB);
 	else if (alt > env->map->max - 7 * tenth)

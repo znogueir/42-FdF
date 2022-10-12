@@ -12,23 +12,6 @@
 
 #include "../includes/fdf.h"
 
-int	ft_key_hook(int keycode, void *param)
-{
-	t_env	*env;
-
-	env = (t_env *)param;
-	ft_move_view(env, keycode);
-	ft_rotate_view(env, keycode);
-	ft_switch_views(env, keycode);
-	ft_switch_colors(env, keycode);
-	if (env->map->is_flipped == -1)
-		ft_rev_display_v2(env);
-	else
-		ft_display_v2(env);
-//	ft_close_hook(env, keycode);
-	return (0);
-}
-
 int	*create_line(char **clean_line, t_env *env)
 {
 	int		*line;
@@ -47,28 +30,11 @@ int	*create_line(char **clean_line, t_env *env)
 	return (line);
 }
 
-int	**read_map_v2(t_env *env, int file)
+int	**read_map_p2(t_env *env, int **result, int file2, char *line)
 {
-	int		**result;
-	int		i;
-	char	*line;
-	int		file2;
 	char	**clean_line;
+	int		i;
 
-	line = get_next_line(file);
-	if (!line)
-		return (NULL);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(file);
-		env->map->height++;
-	}
-	close(file);
-	file2 = open(env->file_name, O_RDONLY);
-	if (!file2)
-		return (0);
-	result = malloc(sizeof(int *) * env->map->height);
 	i = 0;
 	line = get_next_line(file2);
 	clean_line = ft_split(line, ' ');
@@ -82,6 +48,7 @@ int	**read_map_v2(t_env *env, int file)
 	{
 		result[i] = create_line(clean_line, env);
 		free(line);
+		ft_free_split(clean_line);
 		line = get_next_line(file2);
 		if (line)
 			clean_line = ft_split(line, ' ');
@@ -91,23 +58,47 @@ int	**read_map_v2(t_env *env, int file)
 	return (result);
 }
 
+int	**read_map_v2(t_env *env, int file)
+{
+	int		**result;
+	char	*line;
+	int		file2;
+
+	line = get_next_line(file);
+	if (!line)
+		return (NULL);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(file);
+		env->map->height++;
+	}
+	free(line);
+	close(file);
+	file2 = open(env->file_name, O_RDONLY);
+	if (!file2)
+		return (0);
+	result = malloc(sizeof(int *) * env->map->height);
+	return (read_map_p2(env, result, file2, line));
+}
+
 int	main(int ac, char **av)
 {
 	int		file;
-	t_env	env;
+	t_env	*env;
 
 	if (ac == 2)
 	{
 		file = open(av[1], O_RDONLY);
 		if (!file)
 			return (0);
-		env.file_name = av[1];
-		ft_init(file, &env);
-		ft_display_v2(&env);
-		//mlx_key_hook(env.mlx_win, &ft_key_hook, &env);
-		mlx_hook(env.mlx_win, 2, 1, ft_key_hook, &env);
-		//mlx_hook(data->win, 17, 0, ft_close, data);
-		mlx_loop(env.mlx);
+		env = malloc(sizeof(t_env));
+		env->file_name = av[1];
+		ft_init(file, env);
+		ft_display_v2(env);
+		mlx_hook(env->mlx_win, 2, 1, ft_key_hook, env);
+		mlx_hook(env->mlx_win, 17, 0, ft_close, env);
+		mlx_loop(env->mlx);
 	}
 	return (0);
 }

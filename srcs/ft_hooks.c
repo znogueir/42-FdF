@@ -12,10 +12,6 @@
 
 #include "../includes/fdf.h"
 
-// void	ft_close_hook(t_env *env, int keycode)
-// {
-// }
-
 void	ft_switch_colors(t_env *env, int keycode)
 {
 	if (keycode == K_MINUS)
@@ -59,9 +55,9 @@ void	ft_switch_views(t_env *env, int keycode)
 void	ft_rotate_view(t_env *env, int keycode)
 {
 	if (keycode == K_G)
-		env->map->angle_z += 0.1;
-	if (keycode == K_J)
 		env->map->angle_z -= 0.1;
+	if (keycode == K_J)
+		env->map->angle_z += 0.1;
 	if (keycode == K_H)
 		env->map->angle_x += 0.1;
 	if (keycode == K_Y)
@@ -92,11 +88,29 @@ void	ft_move_view(t_env *env, int keycode)
 	if (keycode == K_D)
 		env->map->offset_x += 15;
 	if (keycode == K_UP)
-		env->map->zoom_factor += 1;
+		env->map->zoom_factor *= 1.1;
 	if (keycode == K_DWN)
-		env->map->zoom_factor -= 1;
+		env->map->zoom_factor /= 1.1;
 	if (keycode == K_LFT)
-		env->map->alt_factor -= 1;
+		env->map->alt_factor /= 1.1;
 	if (keycode == K_RGT)
-		env->map->alt_factor += 1;
+		env->map->alt_factor *= 1.1;
+}
+
+int	ft_key_hook(int keycode, void *param)
+{
+	t_env	*env;
+
+	env = (t_env *)param;
+	if (keycode == K_ESC)
+		ft_close(env);
+	ft_move_view(env, keycode);
+	ft_rotate_view(env, keycode);
+	ft_switch_views(env, keycode);
+	ft_switch_colors(env, keycode);
+	if (env->map->is_flipped == -1)
+		ft_rev_display_v2(env);
+	else
+		ft_display_v2(env);
+	return (0);
 }

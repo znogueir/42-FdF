@@ -14,7 +14,7 @@
 
 int	get_purple_theme(t_env *env, int alt)
 {
-	int	tenth;
+	float	tenth;
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
@@ -41,7 +41,7 @@ int	get_purple_theme(t_env *env, int alt)
 
 int	get_frozen_theme(t_env *env, int alt)
 {
-	int	tenth;
+	float	tenth;
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
@@ -68,7 +68,7 @@ int	get_frozen_theme(t_env *env, int alt)
 
 int	get_matrix_theme(t_env *env, int alt)
 {
-	int	tenth;
+	float	tenth;
 
 	tenth = (env->map->max - env->map->min) / 10;
 	if (alt > env->map->max - tenth)
