@@ -3,7 +3,7 @@
 <br>
 
 Goal(s) : 
-- code a program that displays a specific file format as a 3d wireframe
+- create a program that renders a specific file format as a 3d wireframe
 <br>
 
 Features :
@@ -16,9 +16,9 @@ Features :
 <br>
 
 Concept(s) learned :
-- using a simple graphic library
+- using a simple graphics library
 - bresenham's algorithm
 - managing keyboard inputs (bonus)
 - 3D rotations formulas (bonus)
-- linear interpolation (mapping height to color gradient) (bonus)
+- linear interpolation (bonus)
 - bit manipulation for rgb channels (bonus)
