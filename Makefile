@@ -15,6 +15,7 @@ OBJ_PATH 	= obj/
 SRC			= animate.c \
 			calculate_pt.c \
 			colors.c \
+			gradient_theme.c \
 			display.c \
 			ft_hooks.c \
 			ft_init.c \

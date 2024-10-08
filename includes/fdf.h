@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: znogueir <znogueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:12:50 by znogueir          #+#    #+#             */
-/*   Updated: 2022/10/11 17:16:54 by znogueir         ###   ########.fr       */
+/*   Updated: 2024/10/08 21:18:54 by znogueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int		get_realist_theme(t_env *env, int alt);
 int		get_purple_theme(t_env *env, int alt);
 int		get_frozen_theme(t_env *env, int alt);
 int		get_matrix_theme(t_env *env, int alt);
+int		get_perfect_gradient(t_env *env, int alt);
 
 //	free
 int		ft_close(t_env *env);

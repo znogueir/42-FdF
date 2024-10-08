@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: znogueir <znogueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 01:58:34 by znogueir          #+#    #+#             */
-/*   Updated: 2022/10/11 01:59:16 by znogueir         ###   ########.fr       */
+/*   Updated: 2024/10/08 21:06:58 by znogueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_switch_colors(t_env *env, int keycode)
 		if (env->theme > 0)
 			env->theme--;
 		else
-			env->theme = 6;
+			env->theme = 7;
 	}
 	if (keycode == K_PLUS)
 	{
-		if (env->theme < 6)
+		if (env->theme < 7)
 			env->theme++;
 		else
 			env->theme = 0;

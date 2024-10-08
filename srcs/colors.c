@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znogueir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: znogueir <znogueir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 01:59:49 by znogueir          #+#    #+#             */
-/*   Updated: 2022/10/11 02:02:34 by znogueir         ###   ########.fr       */
+/*   Updated: 2024/10/08 21:42:46 by znogueir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ int	get_color(t_env *env, int alt)
 	if (env->theme == 0)
 		return (0xFFFFFF);
 	else if (env->theme == 1)
-		return (get_elevation_theme(env, alt));
+		return (get_perfect_gradient(env, alt));
 	else if (env->theme == 2)
-		return (get_rb_theme(env, alt));
+		return (get_elevation_theme(env, alt));
 	else if (env->theme == 3)
-		return (get_realist_theme(env, alt));
+		return (get_rb_theme(env, alt));
 	else if (env->theme == 4)
-		return (get_purple_theme(env, alt));
+		return (get_realist_theme(env, alt));
 	else if (env->theme == 5)
+		return (get_purple_theme(env, alt));
+	else if (env->theme == 6)
 		return (get_frozen_theme(env, alt));
 	else
 		return (get_matrix_theme(env, alt));
